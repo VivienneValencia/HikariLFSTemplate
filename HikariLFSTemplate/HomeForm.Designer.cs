@@ -29,39 +29,41 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeForm));
-            this.adminButton = new System.Windows.Forms.Button();
-            this.homeButton = new System.Windows.Forms.Button();
             this.navigationPanel = new System.Windows.Forms.Panel();
+            this.adminButton = new MetroFramework.Controls.MetroButton();
+            this.homeButton = new MetroFramework.Controls.MetroButton();
             this.label1 = new System.Windows.Forms.Label();
+            this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
             this.navigationPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // adminButton
-            // 
-            this.adminButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            resources.ApplyResources(this.adminButton, "adminButton");
-            this.adminButton.Name = "adminButton";
-            this.adminButton.UseVisualStyleBackColor = false;
-            this.adminButton.Click += new System.EventHandler(this.adminButton_Click);
-            // 
-            // homeButton
-            // 
-            this.homeButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            resources.ApplyResources(this.homeButton, "homeButton");
-            this.homeButton.Name = "homeButton";
-            this.homeButton.UseVisualStyleBackColor = false;
-            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             // 
             // navigationPanel
             // 
             this.navigationPanel.BackColor = System.Drawing.SystemColors.Window;
             this.navigationPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.navigationPanel.Controls.Add(this.homeButton);
             this.navigationPanel.Controls.Add(this.adminButton);
+            this.navigationPanel.Controls.Add(this.homeButton);
             resources.ApplyResources(this.navigationPanel, "navigationPanel");
             this.navigationPanel.Name = "navigationPanel";
-            this.navigationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.navigationPanel_Paint);
+            // 
+            // adminButton
+            // 
+            resources.ApplyResources(this.adminButton, "adminButton");
+            this.adminButton.Name = "adminButton";
+            this.adminButton.Style = MetroFramework.MetroColorStyle.Silver;
+            this.adminButton.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.adminButton.Click += new System.EventHandler(this.adminButton_Click_1);
+            // 
+            // homeButton
+            // 
+            resources.ApplyResources(this.homeButton, "homeButton");
+            this.homeButton.Name = "homeButton";
+            this.homeButton.Style = MetroFramework.MetroColorStyle.Silver;
+            this.homeButton.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             // 
             // label1
             // 
@@ -69,6 +71,11 @@
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
+            // 
+            // metroStyleManager1
+            // 
+            this.metroStyleManager1.Owner = null;
+            this.metroStyleManager1.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
             // HomeForm
             // 
@@ -79,16 +86,19 @@
             this.Name = "HomeForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.navigationPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private MetroFramework.Controls.MetroButton adminButton;
+
+        private MetroFramework.Components.MetroStyleManager metroStyleManager1;
+
+        private MetroFramework.Controls.MetroButton homeButton;
 
         private System.Windows.Forms.Label label1;
 
         private System.Windows.Forms.Panel navigationPanel;
-
-        private System.Windows.Forms.Button homeButton;
-
-        private System.Windows.Forms.Button adminButton;
 
         #endregion
     }
