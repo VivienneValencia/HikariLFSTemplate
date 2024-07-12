@@ -29,6 +29,11 @@ namespace HikariLFSTemplate
             AdminForm adminForm = new AdminForm();
             adminForm.ShowDialog();
         }
-        
+
+        private void infoButton_Click(object sender, EventArgs e)
+        {
+            InfoForm infoForm = new InfoForm();
+            infoForm.ShowDialog();
+        }
     }
 }
