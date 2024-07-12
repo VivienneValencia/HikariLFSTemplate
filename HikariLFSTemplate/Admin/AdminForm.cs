@@ -2,6 +2,7 @@
 using System.Data.SQLite;
 using System.Windows.Forms;
 using HikariLFSTemplate.Models;
+
 namespace HikariLFSTemplate.Admin
 {
     public partial class AdminForm : Form
@@ -20,7 +21,7 @@ namespace HikariLFSTemplate.Admin
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                string query = "CREATE TABLE IF NOT EXISTS Relations (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Barcode TEXT, Size TEXT, Description TEXT)";
+                string query = "CREATE TABLE IF NOT EXISTS Relations (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Barcode TEXT, Size TEXT, Description TEXT, Type TEXT)";
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 command.ExecuteNonQuery();
             }
@@ -32,10 +33,11 @@ namespace HikariLFSTemplate.Admin
             string barcode = txtBarcode.Text;
             string size = txtSize.Text;
             string description = txtDescription.Text;
+            string type = cmbRelationType.SelectedItem?.ToString();
 
-            if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(barcode) && !string.IsNullOrEmpty(size))
+            if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(barcode) && !string.IsNullOrEmpty(size) && !string.IsNullOrEmpty(type))
             {
-                AddRelationToDatabase(name, barcode, size, description);
+                AddRelationToDatabase(name, barcode, size, description, type);
                 LoadRelations();
                 ClearInputFields();
             }
@@ -54,6 +56,7 @@ namespace HikariLFSTemplate.Admin
                 selectedRelation.Barcode = txtBarcode.Text;
                 selectedRelation.Size = txtSize.Text;
                 selectedRelation.Description = txtDescription.Text;
+                selectedRelation.Type = cmbRelationType.SelectedItem?.ToString();
                 UpdateRelationInDatabase(selectedRelation);
                 LoadRelations();
                 ClearInputFields();
@@ -88,6 +91,7 @@ namespace HikariLFSTemplate.Admin
                 txtBarcode.Text = selectedRelation.Barcode;
                 txtSize.Text = selectedRelation.Size;
                 txtDescription.Text = selectedRelation.Description;
+                cmbRelationType.SelectedItem = selectedRelation.Type;
             }
         }
 
@@ -96,28 +100,29 @@ namespace HikariLFSTemplate.Admin
             lstRelations.Items.Clear();
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                string query = "SELECT Id, Name, Barcode, Size, Description FROM Relations";
+                string query = "SELECT Id, Name, Barcode, Size, Description, Type FROM Relations";
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 connection.Open();
                 SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    Relation relation = new Relation(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
+                    Relation relation = new Relation(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5));
                     lstRelations.Items.Add(relation);
                 }
             }
         }
 
-        private void AddRelationToDatabase(string name, string barcode, string size, string description)
+        private void AddRelationToDatabase(string name, string barcode, string size, string description, string type)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                string query = "INSERT INTO Relations (Name, Barcode, Size, Description) VALUES (@Name, @Barcode, @Size, @Description)";
+                string query = "INSERT INTO Relations (Name, Barcode, Size, Description, Type) VALUES (@Name, @Barcode, @Size, @Description, @Type)";
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 command.Parameters.AddWithValue("@Name", name);
                 command.Parameters.AddWithValue("@Barcode", barcode);
                 command.Parameters.AddWithValue("@Size", size);
                 command.Parameters.AddWithValue("@Description", description);
+                command.Parameters.AddWithValue("@Type", type);
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -127,13 +132,14 @@ namespace HikariLFSTemplate.Admin
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                string query = "UPDATE Relations SET Name = @Name, Barcode = @Barcode, Size = @Size, Description = @Description WHERE Id = @Id";
+                string query = "UPDATE Relations SET Name = @Name, Barcode = @Barcode, Size = @Size, Description = @Description, Type = @Type WHERE Id = @Id";
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 command.Parameters.AddWithValue("@Name", relation.Name);
                 command.Parameters.AddWithValue("@Barcode", relation.Barcode);
                 command.Parameters.AddWithValue("@Size", relation.Size);
-                command.Parameters.AddWithValue("@Id", relation.Id);
                 command.Parameters.AddWithValue("@Description", relation.Description);
+                command.Parameters.AddWithValue("@Type", relation.Type);
+                command.Parameters.AddWithValue("@Id", relation.Id);
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -157,8 +163,7 @@ namespace HikariLFSTemplate.Admin
             txtBarcode.Clear();
             txtSize.Clear();
             txtDescription.Clear();
+            cmbRelationType.SelectedIndex = -1;
         }
     }
-
- 
 }

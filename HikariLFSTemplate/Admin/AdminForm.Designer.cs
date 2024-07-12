@@ -2,15 +2,22 @@
 {
     partial class AdminForm
     {
-        /// <summary>
-        /// Erforderliche Designervariable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.Label lblRelationName;
+        private System.Windows.Forms.Label lblBarcode;
+        private System.Windows.Forms.Label lblSize;
+        private System.Windows.Forms.Label lblDescription;
+        private System.Windows.Forms.Label lblRelationType;
+        private System.Windows.Forms.TextBox txtRelationName;
+        private System.Windows.Forms.TextBox txtBarcode;
+        private System.Windows.Forms.TextBox txtSize;
+        private System.Windows.Forms.TextBox txtDescription;
+        private System.Windows.Forms.ComboBox cmbRelationType;
+        private System.Windows.Forms.ListBox lstRelations;
+        private System.Windows.Forms.Button btnAddRelation;
+        private System.Windows.Forms.Button btnEditRelation;
+        private System.Windows.Forms.Button btnDeleteRelation;
 
-        /// <summary>
-        /// Verwendete Ressourcen bereinigen.
-        /// </summary>
-        /// <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -19,8 +26,6 @@
             }
             base.Dispose(disposing);
         }
-
-        #region Vom Windows Form-Designer generierter Code
 
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -40,6 +45,8 @@
             this.btnDeleteRelation = new System.Windows.Forms.Button();
             this.lblDescription = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
+            this.lblRelationType = new System.Windows.Forms.Label();
+            this.cmbRelationType = new MetroFramework.Controls.MetroComboBox();
             this.SuspendLayout();
             // 
             // lblRelationName
@@ -146,9 +153,30 @@
             this.txtDescription.Size = new System.Drawing.Size(200, 20);
             this.txtDescription.TabIndex = 11;
             // 
+            // lblRelationType
+            // 
+            this.lblRelationType.AutoSize = true;
+            this.lblRelationType.Location = new System.Drawing.Point(403, 23);
+            this.lblRelationType.Name = "lblRelationType";
+            this.lblRelationType.Size = new System.Drawing.Size(68, 13);
+            this.lblRelationType.TabIndex = 12;
+            this.lblRelationType.Text = "Relationstyp:";
+            // 
+            // cmbRelationType
+            // 
+            this.cmbRelationType.FormattingEnabled = true;
+            this.cmbRelationType.ItemHeight = 23;
+            this.cmbRelationType.Items.AddRange(new object[] { "Festplatz", "Kommissionierplatz" });
+            this.cmbRelationType.Location = new System.Drawing.Point(499, 17);
+            this.cmbRelationType.Name = "cmbRelationType";
+            this.cmbRelationType.Size = new System.Drawing.Size(79, 29);
+            this.cmbRelationType.TabIndex = 9;
+            // 
             // AdminForm
             // 
-            this.ClientSize = new System.Drawing.Size(400, 350);
+            this.ClientSize = new System.Drawing.Size(633, 350);
+            this.Controls.Add(this.cmbRelationType);
+            this.Controls.Add(this.lblRelationType);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.btnDeleteRelation);
@@ -166,22 +194,5 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
-
-        
-
-        #endregion
-
-        private System.Windows.Forms.Label lblRelationName;
-        private System.Windows.Forms.Label lblBarcode;
-        private System.Windows.Forms.Label lblSize;
-        private System.Windows.Forms.TextBox txtRelationName;
-        private System.Windows.Forms.TextBox txtBarcode;
-        private System.Windows.Forms.TextBox txtSize;
-        private System.Windows.Forms.ListBox lstRelations;
-        private System.Windows.Forms.Button btnAddRelation;
-        private System.Windows.Forms.Button btnEditRelation;
-        private System.Windows.Forms.Button btnDeleteRelation;
-        private System.Windows.Forms.Label lblDescription;
-        private System.Windows.Forms.TextBox txtDescription;
     }
 }
