@@ -38,6 +38,8 @@
             this.btnAddRelation = new System.Windows.Forms.Button();
             this.btnEditRelation = new System.Windows.Forms.Button();
             this.btnDeleteRelation = new System.Windows.Forms.Button();
+            this.lblDescription = new System.Windows.Forms.Label();
+            this.txtDescription = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblRelationName
@@ -91,9 +93,9 @@
             // lstRelations
             // 
             this.lstRelations.FormattingEnabled = true;
-            this.lstRelations.Location = new System.Drawing.Point(20, 140);
+            this.lstRelations.Location = new System.Drawing.Point(20, 166);
             this.lstRelations.Name = "lstRelations";
-            this.lstRelations.Size = new System.Drawing.Size(360, 147);
+            this.lstRelations.Size = new System.Drawing.Size(360, 121);
             this.lstRelations.TabIndex = 6;
             this.lstRelations.SelectedIndexChanged += new System.EventHandler(this.lstRelations_SelectedIndexChanged);
             // 
@@ -127,9 +129,28 @@
             this.btnDeleteRelation.UseVisualStyleBackColor = true;
             this.btnDeleteRelation.Click += new System.EventHandler(this.btnDeleteRelation_Click);
             // 
+            // lblDescription
+            // 
+            this.lblDescription.AutoSize = true;
+            this.lblDescription.Location = new System.Drawing.Point(20, 140);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(102, 13);
+            this.lblDescription.TabIndex = 10;
+            this.lblDescription.Text = "Kurze Beschreibung";
+            // 
+            // txtDescription
+            // 
+            this.txtDescription.Location = new System.Drawing.Point(180, 137);
+            this.txtDescription.MaxLength = 200;
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(200, 20);
+            this.txtDescription.TabIndex = 11;
+            // 
             // AdminForm
             // 
             this.ClientSize = new System.Drawing.Size(400, 350);
+            this.Controls.Add(this.txtDescription);
+            this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.btnDeleteRelation);
             this.Controls.Add(this.btnEditRelation);
             this.Controls.Add(this.btnAddRelation);
@@ -146,6 +167,8 @@
             this.PerformLayout();
         }
 
+        
+
         #endregion
 
         private System.Windows.Forms.Label lblRelationName;
@@ -158,5 +181,7 @@
         private System.Windows.Forms.Button btnAddRelation;
         private System.Windows.Forms.Button btnEditRelation;
         private System.Windows.Forms.Button btnDeleteRelation;
+        private System.Windows.Forms.Label lblDescription;
+        private System.Windows.Forms.TextBox txtDescription;
     }
 }

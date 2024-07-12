@@ -20,7 +20,7 @@ namespace HikariLFSTemplate.Admin
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                string query = "CREATE TABLE IF NOT EXISTS Relations (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Barcode TEXT, Size TEXT)";
+                string query = "CREATE TABLE IF NOT EXISTS Relations (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Barcode TEXT, Size TEXT, Description TEXT)";
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 command.ExecuteNonQuery();
             }
@@ -31,10 +31,11 @@ namespace HikariLFSTemplate.Admin
             string name = txtRelationName.Text;
             string barcode = txtBarcode.Text;
             string size = txtSize.Text;
+            string description = txtDescription.Text;
 
             if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(barcode) && !string.IsNullOrEmpty(size))
             {
-                AddRelationToDatabase(name, barcode, size);
+                AddRelationToDatabase(name, barcode, size, description);
                 LoadRelations();
                 ClearInputFields();
             }
@@ -52,6 +53,7 @@ namespace HikariLFSTemplate.Admin
                 selectedRelation.Name = txtRelationName.Text;
                 selectedRelation.Barcode = txtBarcode.Text;
                 selectedRelation.Size = txtSize.Text;
+                selectedRelation.Description = txtDescription.Text;
                 UpdateRelationInDatabase(selectedRelation);
                 LoadRelations();
                 ClearInputFields();
@@ -85,6 +87,7 @@ namespace HikariLFSTemplate.Admin
                 txtRelationName.Text = selectedRelation.Name;
                 txtBarcode.Text = selectedRelation.Barcode;
                 txtSize.Text = selectedRelation.Size;
+                txtDescription.Text = selectedRelation.Description;
             }
         }
 
@@ -93,27 +96,28 @@ namespace HikariLFSTemplate.Admin
             lstRelations.Items.Clear();
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                string query = "SELECT Id, Name, Barcode, Size FROM Relations";
+                string query = "SELECT Id, Name, Barcode, Size, Description FROM Relations";
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 connection.Open();
                 SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    Relation relation = new Relation(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                    Relation relation = new Relation(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
                     lstRelations.Items.Add(relation);
                 }
             }
         }
 
-        private void AddRelationToDatabase(string name, string barcode, string size)
+        private void AddRelationToDatabase(string name, string barcode, string size, string description)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                string query = "INSERT INTO Relations (Name, Barcode, Size) VALUES (@Name, @Barcode, @Size)";
+                string query = "INSERT INTO Relations (Name, Barcode, Size, Description) VALUES (@Name, @Barcode, @Size, @Description)";
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 command.Parameters.AddWithValue("@Name", name);
                 command.Parameters.AddWithValue("@Barcode", barcode);
                 command.Parameters.AddWithValue("@Size", size);
+                command.Parameters.AddWithValue("@Description", description);
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -123,12 +127,13 @@ namespace HikariLFSTemplate.Admin
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                string query = "UPDATE Relations SET Name = @Name, Barcode = @Barcode, Size = @Size WHERE Id = @Id";
+                string query = "UPDATE Relations SET Name = @Name, Barcode = @Barcode, Size = @Size, Description = @Description WHERE Id = @Id";
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 command.Parameters.AddWithValue("@Name", relation.Name);
                 command.Parameters.AddWithValue("@Barcode", relation.Barcode);
                 command.Parameters.AddWithValue("@Size", relation.Size);
                 command.Parameters.AddWithValue("@Id", relation.Id);
+                command.Parameters.AddWithValue("@Description", relation.Description);
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -151,6 +156,7 @@ namespace HikariLFSTemplate.Admin
             txtRelationName.Clear();
             txtBarcode.Clear();
             txtSize.Clear();
+            txtDescription.Clear();
         }
     }
 
