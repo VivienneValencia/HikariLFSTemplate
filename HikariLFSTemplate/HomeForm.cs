@@ -35,5 +35,11 @@ namespace HikariLFSTemplate
             InfoForm infoForm = new InfoForm();
             infoForm.ShowDialog();
         }
+
+        private void btnOrderManager_Click(object sender, EventArgs e)
+        {
+            AuftragsverwaltungForm auftragsverwaltungForm = new AuftragsverwaltungForm();
+            auftragsverwaltungForm.ShowDialog();
+        }
     }
 }

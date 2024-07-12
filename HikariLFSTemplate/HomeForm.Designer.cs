@@ -32,6 +32,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeForm));
             this.navigationPanel = new System.Windows.Forms.Panel();
+            this.btnOrderManager = new MetroFramework.Controls.MetroButton();
             this.infoButton = new MetroFramework.Controls.MetroButton();
             this.adminButton = new MetroFramework.Controls.MetroButton();
             this.homeButton = new MetroFramework.Controls.MetroButton();
@@ -45,11 +46,20 @@
             // 
             this.navigationPanel.BackColor = System.Drawing.SystemColors.Window;
             this.navigationPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.navigationPanel.Controls.Add(this.btnOrderManager);
             this.navigationPanel.Controls.Add(this.infoButton);
             this.navigationPanel.Controls.Add(this.adminButton);
             this.navigationPanel.Controls.Add(this.homeButton);
             resources.ApplyResources(this.navigationPanel, "navigationPanel");
             this.navigationPanel.Name = "navigationPanel";
+            // 
+            // btnOrderManager
+            // 
+            resources.ApplyResources(this.btnOrderManager, "btnOrderManager");
+            this.btnOrderManager.Name = "btnOrderManager";
+            this.btnOrderManager.Style = MetroFramework.MetroColorStyle.Silver;
+            this.btnOrderManager.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnOrderManager.Click += new System.EventHandler(this.btnOrderManager_Click);
             // 
             // infoButton
             // 
@@ -99,6 +109,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private MetroFramework.Controls.MetroButton btnOrderManager;
 
         private MetroFramework.Controls.MetroButton infoButton;
 
